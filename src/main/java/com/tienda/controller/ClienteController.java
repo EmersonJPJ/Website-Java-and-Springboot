@@ -1,10 +1,12 @@
 package com.tienda.controller;
 
 import com.tienda.domain.Cliente;
+import com.tienda.services.ClienteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import java.util.Arrays;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 /** 
  * @author emers
  */
@@ -12,21 +14,37 @@ import java.util.Arrays;
 @Controller
 public class ClienteController {
     
+    @Autowired
+    private ClienteService clienteService;
     @GetMapping("/")
     public String inicio(Model model){
-        var saludo="Saludos desde el Back End";
-        model.addAttribute("mensaje",saludo);
-        
-        Cliente cliente=new Cliente("Juan","Contreras","jcontreras@gmail.com","25289424");
-        Cliente cliente2=new Cliente("Raul","Contreras","rcontreras@gmail.com","29489974");
-        Cliente cliente3=new Cliente("Marta","Contreras","mcontreras@gmail.com","25277974");
-        
-        var clientes=Arrays.asList(cliente,cliente2,cliente3);
-        
-        model.addAttribute("clientes", clientes);
-        
-        
+        var clientes=clienteService.getClientes();       
+        model.addAttribute("clientes", clientes);       
         return "index";
     }
             
+    @GetMapping("/cliente/eliminar/{idCliente}")
+    public String eliminaCliente(Cliente cliente){
+        clienteService.deleteCliente(cliente);
+        return "redirect:/";
+    }
+    
+    @GetMapping("/cliente/nuevo")
+    public String nuevoCliente(Cliente cliente){
+        return "modificaCliente";
+    }
+    
+    @PostMapping("/cliente/guardar")
+    public String guardarCliente(Cliente cliente){
+        clienteService.saveCliente(cliente);
+        return "redirect:/";
+    }
+    
+    
+    @GetMapping("/cliente/modificar/{idCliente}")
+    public String modificaCliente(Cliente cliente,Model model){
+        cliente=clienteService.getCliente(cliente);
+        model.addAttribute("cliente",cliente);
+        return "modificaCliente";
+    }
 }

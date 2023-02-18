@@ -29,6 +29,15 @@ public class ClienteController {
         return "redirect:/";
     }
     
+     @GetMapping("/cliente/modificar/{idCliente}")
+    public String modificaCliente(Cliente cliente,Model model){
+        cliente=clienteService.getCliente(cliente);
+        model.addAttribute("cliente", cliente);
+        return "modificaCliente";
+    }
+    
+    
+    
     @GetMapping("/cliente/nuevo")
     public String nuevoCliente(Cliente cliente){
         return "modificaCliente";
@@ -41,10 +50,5 @@ public class ClienteController {
     }
     
     
-    @GetMapping("/cliente/modificar/{idCliente}")
-    public String modificaCliente(Cliente cliente,Model model){
-        cliente=clienteService.getCliente(cliente);
-        model.addAttribute("cliente",cliente);
-        return "modificaCliente";
-    }
+   
 }

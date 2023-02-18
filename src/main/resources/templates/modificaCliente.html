@@ -16,31 +16,35 @@
               method="post"
               th:object="${cliente}">
             
-            <input type="hidden" name="idCliente"
-                   th:fiel="*{idCliente}"/>
+            <input type="hidden" name="idCliente" 
+                   th:field="*{idCliente}" /> 
             
             <label>Nombre</label>
-            <input type="text" name="nombre"
-                   value="" th:fiel="*{nombre}" size="30" />
+            <input type="text" name="nombre" value="" 
+                   th:field="*{nombre}"
+                   size="30" />  
             <br>
-            
             <label>Apellidos</label>
-            <input type="text" name="apellidos"
-                   value="" th:fiel="*{apellidos}" size="40" />
+            <input type="text" name="apellidos" value="" 
+                   th:field="*{apellidos}"
+                   size="40" />  
             <br>
-            
             <label>Correo</label>
-            <input type="email" name="correo"
-                   value="" th:fiel="*{correo}" size="15" />
+            <input type="email" name="correo" value="" 
+                   th:field="*{correo}"
+                   size="15" />  
             <br>
-            
             <label>Telefono</label>
-            <input type="tel" name="telefono"
-                   value="" th:fiel="*{telefono}" size="10" />
-            <br>        
+            <input type="tel" name="telefono" value="" 
+                   th:field="*{telefono}"
+                   size="10" />  
+            <br>
             <input type="submit" value="Guardar" />
             
+                
+            
         </form>
+
         
     </body>
 </html>

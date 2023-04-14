@@ -31,12 +31,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http)
             throws Exception {
         http
-                .authorizeHttpRequests((requests) -> requests
-                .requestMatchers(
-                        "/",
+                .authorizeHttpRequests((request) -> request
+                .requestMatchers("/",
                         "/index",
                         "/errores/**",
-                        "/carrito/agregar/**",
+                        "/carrito/**",
+                          "/reportes/**",
                         "/webjars/**").permitAll()
                 .requestMatchers(
                         "/articulo/nuevo",
@@ -50,19 +50,22 @@ public class SecurityConfig {
                         "/cliente/nuevo",
                         "/cliente/guardar",
                         "/cliente/modificar/**",
-                        "/cliente/eliminar/**")
-                .hasRole("ADMIN")
+                        "/cliente/eliminar/**",
+                         "/reportes/**"
+                ).hasRole("ADMIN")
                 .requestMatchers(
                         "/articulo/listado",
                         "/categoria/listado",
-                        "/cliente/listado")
-                .hasAnyRole("ADMIN", "VENDEDOR")
+                        "/cliente/listado"
+                ).hasAnyRole("ADMIN", "VENDEDOR")
+                .requestMatchers("/facturar/carrito")
+                .hasRole("USER")
                 )
                 .formLogin((form) -> form
-                .loginPage("/login")
-                .permitAll())
+                .loginPage("/login").permitAll())
                 .logout((logout) -> logout.permitAll())
-                .exceptionHandling().accessDeniedPage("/errores/403");
+                .exceptionHandling()
+                .accessDeniedPage("/errores/403");
         return http.build();
     }
     

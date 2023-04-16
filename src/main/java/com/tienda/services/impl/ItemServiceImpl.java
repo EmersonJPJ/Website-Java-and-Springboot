@@ -1,4 +1,4 @@
-package com.tienda.services;
+package com.tienda.services.impl;
 
 /**
  *
@@ -7,6 +7,7 @@ package com.tienda.services;
 
 
 import com.tienda.domain.Item;
+import com.tienda.services.ItemService;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
